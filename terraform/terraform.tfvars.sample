@@ -1,0 +1,5 @@
+product_name = "ec2-sample"
+account_id = XXXXXXXXXXXX
+region = "ap-northeast-1"
+deployer_role_name = "ec2-sample-deployer-role"
+function_timeout = 15
