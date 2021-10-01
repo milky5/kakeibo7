@@ -1,5 +1,7 @@
 # kakeibo7 terraform
 
+## 動作確認手順(テスト用)
+
 1. AWS Role
 
    1. AWS Management Console で ロールを新規作成  
@@ -30,3 +32,23 @@
       `terraform apply`
    1. 破棄  
       `terraform destroy`
+
+## メモ
+
+### 構成案
+
+kakeibo7 API
+-> publish
+-> docker build
+-> ECR にアップロード
+-> lambda 関数を作成
+-> API Gateway と紐付け
+-> cognito 認証されていないと API 叩けないようにする
+
+HTML
+-> S3 にアップロード
+-> cognito 認証されていないとアクセスできないようにする
+
+cognito
+-> pool など作成
+-> ユーザーなど作成
