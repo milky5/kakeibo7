@@ -93,8 +93,8 @@
           <a class="btn btn-outline-success" href="#" role="button">追加</a>
         </p>
 
-        <div class="table-responsive">
-          <table class="table table-sm table-striped">
+        <div id="table-place" class="table-responsive">
+          <table id="table" class="table table-sm table-striped">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -104,7 +104,7 @@
                 <th scope="col">購入物名</th>
                 <th scope="col">支出額</th>
                 <th scope="col">ユーザー名</th>
-                <th scope="col">支払方法名</th>
+                <!-- <th scope="col">支払方法名</th> -->
                 <th scope="col">支出分類名</th>
                 <th scope="col">期間開始日</th>
                 <th scope="col">期間終了日</th>
@@ -120,7 +120,7 @@
                 <td>購入物名</td>
                 <td>支出額</td>
                 <td>ユーザー名</td>
-                <td>支払方法名</td>
+                <!-- <td>支払方法名</td> -->
                 <td>支出分類名</td>
                 <td>期間開始日</td>
                 <td>期間終了日</td>
@@ -134,7 +134,7 @@
                 <td>購入物名</td>
                 <td>支出額</td>
                 <td>ユーザー名</td>
-                <td>支払方法名</td>
+                <!-- <td>支払方法名</td> -->
                 <td>支出分類名</td>
                 <td>期間開始日</td>
                 <td>期間終了日</td>
@@ -148,7 +148,7 @@
                 <td>購入物名</td>
                 <td>支出額</td>
                 <td>ユーザー名</td>
-                <td>支払方法名</td>
+                <!-- <td>支払方法名</td> -->
                 <td>支出分類名</td>
                 <td>期間開始日</td>
                 <td>期間終了日</td>
@@ -181,5 +181,88 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <!-- My JavaScript -->
+    <script>
+      (async() => {
+        await fetch("http://localhost:4010/kakeibo/2021/09")
+        .then(response => response.json())
+        .then((data) => {
+          const newTable = document.createElement("table");
+          const newTableBody = newTable.createTBody()
+
+          if (Array.isArray(data.expenses)) {
+            data.expenses.forEach((expense) => {
+              const newRow = newTableBody.insertRow();
+              
+              const newIDCell = newRow.insertCell();
+              const id = document.createTextNode(expense.row_id);
+              newIDCell.appendChild(id);
+
+              const newEditIconCell = newRow.insertCell();
+              const newEditIconSpan = document.createElement("span");
+              newEditIconSpan.classList.add("material-icons");
+              const editStr = document.createTextNode("edit");
+              newEditIconSpan.appendChild(editStr)
+              newEditIconCell.appendChild(newEditIconSpan);
+
+              const newDeleteIconCell = newRow.insertCell();
+              const newDeleteIconSpan = document.createElement("span");
+              newDeleteIconSpan.classList.add("material-icons");
+              const deleteStr = document.createTextNode("delete");
+              newDeleteIconSpan.appendChild(deleteStr)
+              newDeleteIconCell.appendChild(newDeleteIconSpan);
+
+              const newPayDateCell = newRow.insertCell();
+              const payDate = document.createTextNode(expense.pay_date);
+              newPayDateCell.appendChild(payDate);
+
+              const newPayItemCell = newRow.insertCell();
+              const payItem = document.createTextNode(expense.pay_item);
+              newPayItemCell.appendChild(payItem);
+
+              const newPriceCell = newRow.insertCell();
+              const price = document.createTextNode(expense.price);
+              newPriceCell.appendChild(price);
+
+              const newPayUserCell = newRow.insertCell();
+              const payUser = document.createTextNode(expense.pay_user.name);
+              newPayUserCell.appendChild(payUser);
+
+              // 支払い方法？
+              // const newIDCell = newRow.insertCell();
+              // const id = document.createTextNode(expense.row_id);
+              // newIDCell.appendChild(id);
+
+              const newCostTypeCell = newRow.insertCell();
+              const costType = document.createTextNode(expense.cost_type.name);
+              newCostTypeCell.appendChild(costType);
+
+              const newStartDateCell = newRow.insertCell();
+              const startDate = document.createTextNode(expense.start_date);
+              newStartDateCell.appendChild(startDate);
+
+              const newEndDateCell = newRow.insertCell();
+              const endDate = document.createTextNode(expense.end_date);
+              newEndDateCell.appendChild(endDate);
+
+              const newTargetMonthCell = newRow.insertCell();
+              const targetMonth = document.createTextNode(expense.target_month);
+              newTargetMonthCell.appendChild(targetMonth);
+            })
+          }
+
+          newTable.classList.add("table");
+          newTable.classList.add("table-sm");
+          newTable.classList.add("table-striped");
+
+          const tableElement = document.getElementById("table")
+          newTable.tHead = tableElement.tHead;
+
+          const tablePlaceElement = document.getElementById("table-place")
+          tablePlaceElement.replaceChild(newTable, tableElement);
+        })
+        .catch(err => console.log(err))
+      })();
+    </script>
   </body>
 </html>
