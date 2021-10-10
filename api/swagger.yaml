@@ -1,0 +1,340 @@
+openapi: 3.0.0
+info:
+  title: kakeibo7 api
+  description: crud kakeibo csv api definition document
+  version: 0.0.1
+tags:
+  - name: list
+  - name: calculate
+servers:
+  - url: 'https://test' 
+paths:
+  '/kakeibo/{year}/{month}':
+    get:
+      tags:
+        - list
+      summary: get kakeibo list
+      parameters:
+        - name: year
+          in: path
+          required: true
+          description: year string
+          schema:
+            type: string
+            example: '2021'
+        - name: month
+          in: path
+          required: true
+          description: month string
+          schema:
+            type: string
+            example: '09'
+      responses:
+        '200':
+          description: target months lists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expenses_list'
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+  '/kakeibo/{year}/{month}/{day}':
+    post:
+      tags:
+        - list
+      summary: register expense
+      parameters:
+        - name: year
+          in: path
+          required: true
+          description: year string
+          schema:
+            type: string
+            example: '2021'
+        - name: month
+          in: path
+          required: true
+          description: month string
+          schema:
+            type: string
+            example: '09'
+        - name: day
+          in: path
+          required: true
+          description: day string
+          schema:
+            type: string
+            example: '30'
+      requestBody:
+        description: expense
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense'
+      responses:
+        '201':
+          description: target months lists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense'
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+  '/kakeibo/{row_id}':
+    put:
+      tags:
+        - list
+      summary: update expense
+      parameters:
+        - name: row_id
+          in: path
+          required: true
+          description: row_id string
+          schema:
+            type: string
+            example: '1'
+      requestBody:
+        description: expense
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_expense'
+      responses:
+        '200':
+          description: target months lists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense'
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+    delete:
+      tags:
+        - list
+      summary: delete
+      parameters:
+        - name: row_id
+          in: path
+          required: true
+          description: row_id string
+          schema:
+            type: string
+            example: '1'
+      responses:
+        '204':
+          description: succeeded
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+  '/kakeibo/{year}/{month}/fixed':
+    get:
+      tags:
+        - list
+      summary: get fixed expense list
+      parameters:
+        - name: year
+          in: path
+          required: true
+          description: year string
+          schema:
+            type: string
+            example: '2021'
+        - name: month
+          in: path
+          required: true
+          description: month string
+          schema:
+            type: string
+            example: '09'
+      responses:
+        '200':
+          description: target months fixed lists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expenses_list'
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+    post:
+      tags:
+        - list
+      summary: register fixed expense
+      parameters:
+        - name: year
+          in: path
+          required: true
+          description: year string
+          schema:
+            type: string
+            example: '2021'
+        - name: month
+          in: path
+          required: true
+          description: month string
+          schema:
+            type: string
+            example: '09'
+      requestBody:
+        description: expense
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/expense'
+      responses:
+        '201':
+          description: target months lists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/expense'
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+  '/kakeibo/calculate/{year}/{month}':
+    get:
+      tags:
+        - calculate
+      summary: get kakeibo calculated list
+      parameters:
+        - name: year
+          in: path
+          required: true
+          description: year string
+          schema:
+            type: string
+            example: '2021'
+        - name: month
+          in: path
+          required: true
+          description: month string
+          schema:
+            type: string
+            example: '09'
+      responses:
+        '200':
+          description: target months calculated values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/calculated_list'
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+components:
+  schemas:
+    expense:
+      type: object
+      properties:
+        row_id:
+          type: number
+        pay_user:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        pay_date:
+          type: string
+          format: date-time
+        pay_item:
+          type: string
+        price:
+          type: number
+        cost_type:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        target_month:
+          type: string
+    expenses_list:
+      type: object
+      properties:
+        expenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/expense'
+    post_expense:
+      type: object
+      properties:
+        pay_user_id: # name とどちらか
+          type: string
+        pay_user_name: # id とどちらか
+          type: string
+        pay_item:
+          type: string
+        price:
+          type: number
+        cost_type:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        target_month:
+          type: string
+      required:
+        - pay_user_id
+        - pay_user_name
+        - pay_item
+        - price
+        - cost_type
+    calculated:
+      type: object
+      properties:
+        total:
+          type: number
+    calculated_list:
+      type: object
+      properties:
+        total:
+          $ref: '#/components/schemas/calculated'
+    error_response:
+      type: object
+      properties:
+        message:
+          type: string
