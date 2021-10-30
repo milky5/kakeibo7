@@ -264,7 +264,7 @@ components:
               type: string
         pay_date:
           type: string
-          format: date-time
+          format: date
         pay_item:
           type: string
         price:
@@ -278,10 +278,10 @@ components:
               type: string
         start_date:
           type: string
-          format: date-time
+          format: date
         end_date:
           type: string
-          format: date-time
+          format: date
         target_month:
           type: string
     expenses_list:
@@ -311,10 +311,10 @@ components:
               type: string
         start_date:
           type: string
-          format: date-time
+          format: date
         end_date:
           type: string
-          format: date-time
+          format: date
         target_month:
           type: string
       required:
