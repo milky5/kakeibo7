@@ -70,65 +70,93 @@
     </header>
     <div class="container">
       <main role="main" class="pb-3">
-        <h2>作成</h2>
+        <h2>追加</h2>
 
         <hr />
         <div class="row">
           <div class="col-md-4">
             <form>
               <input type="hidden" asp-for="id" />
-              <div class="form-group">
-                <label for="PayDate">支払日</label>
-                <input class="form-control form-control-sm" id="PayDate" />
+              <div class="form-group row">
+                <label for="PayDate" class="col col-form-label">支払日</label>
+                <div class="col">
+                  <input type="date" class="form-control form-control-sm" id="PayDate" />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="PayItem">購入物名</label>
-                <input class="form-control form-control-sm" id="PayItem" />
+              <div class="form-group row">
+                <label for="PayItem" class="col col-form-label">購入物名</label>
+                <div class="col">
+                  <input class="form-control form-control-sm" id="PayItem" />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="Price">支出額</label>
-                <input
+              <div class="form-group row">
+                <label for="Price" class="col col-form-label">支出額</label>
+                <div class="col">
+                  <input
                   type="number"
                   class="form-control form-control-sm"
                   id="Price"
                 />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="UserName">ユーザー名</label>
-                <input class="form-control form-control-sm" id="UserName" />
+              <div class="form-group row">
+                <label for="UserName" class="col col-form-label">ユーザー名</label>
+                <div class="col">
+                  <select class="form-control form-control-sm" id="UserName">
+                    <option>user1</option>
+                    <option>user2</option>
+                  </select>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="Payment">支払方法名</label>
-                <input class="form-control form-control-sm" id="Payment" />
+              <div class="form-group row">
+                <label for="Payment" class="col col-form-label">支払方法名</label>
+                <div class="col">
+                  <select class="form-control form-control-sm" id="Payment">
+                    <option>payment1</option>
+                    <option>payment2</option>
+                  </select>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="CostType">支出分類名</label>
-                <input class="form-control form-control-sm" id="CostType" />
+              <div class="form-group row">
+                <label for="CostType" class="col col-form-label">支出分類名</label>
+                <div class="col">
+                  <select class="form-control form-control-sm" id="CostType">
+                    <option>costtype1</option>
+                    <option>costtype2</option>
+                  </select>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="StartDate">期間開始日</label>
-                <input
+              <div class="form-group row">
+                <label for="StartDate" class="col col-form-label">期間開始日</label>
+                <div class="col">
+                  <input
                   type="date"
                   class="form-control form-control-sm"
                   id="StartDate"
                 />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="EndDate">期間終了日</label>
-                <input
+              <div class="form-group row">
+                <label for="EndDate" class="col col-form-label">期間終了日</label>
+                <div class="col">
+                  <input
                   type="date"
                   class="form-control form-control-sm"
                   id="EndDate"
                 />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="ForMonth">○月分</label>
-                <input class="form-control form-control-sm" id="ForMonth" />
+              <div class="form-group row">
+                <label for="ForMonth" class="col col-form-label">○月分</label>
+                <div class="col">
+                  <input class="form-control form-control-sm" id="ForMonth" />
+                </div>
               </div>
-              <button type="submit" class="btn btn-success">作成</button>
+              <button type="submit" class="btn btn-success btn-block">追加</button>
             </form>
           </div>
         </div>
+        <br />
 
         <div>
           <a class="btn btn-outline-secondary" href="#" role="button"
