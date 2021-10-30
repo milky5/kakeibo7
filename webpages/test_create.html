@@ -75,7 +75,6 @@
         <hr />
         <div class="row">
           <div class="col-md-4">
-            <form>
               <input type="hidden" asp-for="id" />
               <div class="form-group row">
                 <label for="PayDate" class="col col-form-label">支払日</label>
@@ -103,8 +102,8 @@
                 <label for="UserName" class="col col-form-label">ユーザー名</label>
                 <div class="col">
                   <select class="form-control form-control-sm" id="UserName">
-                    <option>user1</option>
-                    <option>user2</option>
+                    <option value="user1">ユーザー1</option>
+                    <option value="user2">ユーザー2</option>
                   </select>
                 </div>
               </div>
@@ -112,8 +111,8 @@
                 <label for="Payment" class="col col-form-label">支払方法名</label>
                 <div class="col">
                   <select class="form-control form-control-sm" id="Payment">
-                    <option>payment1</option>
-                    <option>payment2</option>
+                    <option value="payment1">支払い方法1</option>
+                    <option value="payment2">支払い方法2</option>
                   </select>
                 </div>
               </div>
@@ -121,8 +120,8 @@
                 <label for="CostType" class="col col-form-label">支出分類名</label>
                 <div class="col">
                   <select class="form-control form-control-sm" id="CostType">
-                    <option>costtype1</option>
-                    <option>costtype2</option>
+                    <option value="9991">分類1</option>
+                    <option value="9992">分類2</option>
                   </select>
                 </div>
               </div>
@@ -152,8 +151,7 @@
                   <input class="form-control form-control-sm" id="ForMonth" />
                 </div>
               </div>
-              <button type="submit" class="btn btn-success btn-block">追加</button>
-            </form>
+              <button class="btn btn-success btn-block" onClick="addExpense();">追加</button>
           </div>
         </div>
         <br />
@@ -187,5 +185,39 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <!-- My JavaScript -->
+    <script>
+      function addExpense() {
+      const newExpense = {
+        pay_user: {
+          id: document.getElementById("UserName").options[document.getElementById("UserName").selectedIndex].value || "",
+          name: document.getElementById("UserName").options[document.getElementById("UserName").selectedIndex].text || ""
+        },
+        pay_date: document.getElementById("PayDate").value || "",
+        pay_item: document.getElementById("PayItem").value || "",
+        price: parseInt(document.getElementById("Price").value, 10) || 0,
+        cost_type: {
+          id: parseInt(document.getElementById("CostType").options[document.getElementById("CostType").selectedIndex].value, 10) || 0,
+          name: document.getElementById("CostType").options[document.getElementById("CostType").selectedIndex].text || ""
+        },
+        start_date: document.getElementById("StartDate").value || "",
+        end_date: document.getElementById("EndDate").value || "",
+        target_month: document.getElementById("ForMonth").value || "",
+      }
+
+      console.log(newExpense);
+
+      const method = "POST";
+      const body = JSON.stringify(newExpense);
+      const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      };
+      fetch("http://localhost:4010/kakeibo/2021/10/30", {method, headers, body})
+      .then((res)=> res.json())
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+      }
+    </script>
   </body>
 </html>
